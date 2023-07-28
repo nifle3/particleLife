@@ -1,12 +1,12 @@
 package update
 
 type Canvas interface {
-	DrawAll([][2]int, []string)
+	DrawAll([][3]int)
 }
 
 type GroupParticle interface {
 	MoveAllParticle()
-	GetAllCoordinates() ([][2]int, []string)
+	GetAllCoordinates() [][3]int
 }
 
 type Updater struct {
