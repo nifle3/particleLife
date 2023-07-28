@@ -9,18 +9,36 @@
             padding: 0;
         }
 
-        #myCanvas{
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
+        #container{
+            display: flex;
             height: 100vh;
+        }
+
+        #RightPart{
+            flex: 0.5;
+        }
+
+        #LeftPart{
+            flex: 1;
+            margin: 0;
+        }
+
+        #myCanvas{
+            height: 100%;
+            width: 100%;
             background-color: white;
         }
+
     </style>
 </head>
 <body>
-    <canvas id="myCanvas"></canvas>
+    <div id="container">
+        <div id="RightPart">
+        </div>
+        <div id="LeftPart">
+            <canvas id="myCanvas"></canvas>
+        </div>
+    </div>
 
     <script type="text/javascript" src="wasm_exec.js"></script>
     <script type="text/javascript" src="script.js"></script>
