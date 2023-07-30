@@ -1,12 +1,15 @@
 package registration
 
+import "particleLife/cmd/wasm/pkg/particle"
+
 type Canvas interface {
-	DrawAll()
+	DrawAll(particle []particle.Particle)
 	Clear()
 }
 
 type ParticleGroup interface {
 	MoveAll()
+	GetAllParticle() []particle.Particle
 }
 
 type JsCallBack struct {
