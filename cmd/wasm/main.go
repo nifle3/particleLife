@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	c := make(chan int)
+	c := make(chan bool)
 	fmt.Println("Wasm init")
 	// Update()
 	<-c
