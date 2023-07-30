@@ -3,5 +3,6 @@ package particles
 import "particleLife/cmd/wasm/pkg/particle"
 
 type ParticleGroup struct {
-	particles []particle.Particle
+	particles           [][]particle.Particle
+	maxHeight, maxWidth float64
 }
