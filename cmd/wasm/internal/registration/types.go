@@ -17,11 +17,13 @@ type ParticleGroup interface {
 type JsCallBack struct {
 	canvas    Canvas
 	particles ParticleGroup
+	isSetup   bool
 }
 
 func NewJsCallBack(canvas Canvas, particles ParticleGroup) JsCallBack {
 	return JsCallBack{
 		canvas:    canvas,
 		particles: particles,
+		isSetup:   false,
 	}
 }

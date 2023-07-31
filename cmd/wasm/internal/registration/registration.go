@@ -21,6 +21,7 @@ func (c *JsCallBack) Setup(this js.Value, args []js.Value) interface{} {
 		return err
 	}
 
+	c.isSetup = true
 	return nil
 }
 
@@ -63,11 +64,22 @@ func (c *JsCallBack) setForce(doc js.Value) error {
 }
 
 func (c *JsCallBack) Update(this js.Value, args []js.Value) interface{} {
-	c.canvas.Clear()
-	c.particles.MoveAll()
-	c.canvas.DrawAll(c.particles.GetAllParticle())
+	if !c.isSetup {
+		return nil
+	}
 
-	js.Global().Call("requestAnimationFrame", js.FuncOf(c.Update))
+	var d func(this js.Value, args []js.Value) interface{}
+
+	d = func(this js.Value, args []js.Value) interface{} {
+		c.canvas.Clear()
+		c.particles.MoveAll()
+		c.canvas.DrawAll(c.particles.GetAllParticle())
+
+		js.Global().Call("requestAnimationFrame", js.FuncOf(d))
+		return nil
+	}
+
+	js.Global().Call("requestAnimationFrame", js.FuncOf(d))
 
 	return nil
 }
