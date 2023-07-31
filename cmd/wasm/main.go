@@ -14,13 +14,9 @@ func main() {
 
 	canvasJs := js.Global().Get("document").Call("getElementById", "myCanvas")
 
-	canvasRect := canvasJs.Call("getBoundingClientRect")
-	x := canvasRect.Get("left").Float()
-	y := canvasRect.Get("top").Float()
-
 	maxHeight := canvasJs.Get("height").Float()
 	maxWidth := canvasJs.Get("width").Float()
-	particlesGroup := particles.NewParticleGroup(maxHeight, maxWidth, x, y)
+	particlesGroup := particles.NewParticleGroup(maxHeight, maxWidth)
 
 	ctx := canvasJs.Call("getContext", "2d")
 	canv := canvas.NewCanvas(ctx, maxWidth, maxHeight)

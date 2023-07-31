@@ -9,12 +9,10 @@ type ParticleGroup struct {
 	rule                map[string]float64
 }
 
-func NewParticleGroup(maxHeight, maxWidth, x, y float64) ParticleGroup {
+func NewParticleGroup(maxHeight, maxWidth float64) ParticleGroup {
 	return ParticleGroup{
 		maxHeight: maxHeight,
 		maxWidth:  maxWidth,
-		x:         x,
-		y:         y,
 		rule:      make(map[string]float64),
 	}
 }
