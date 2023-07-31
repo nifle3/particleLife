@@ -10,7 +10,7 @@ func (group *ParticleGroup) GenerateGroups(countBlue, countRed, countBlack int) 
 	group.particles = [][]particle.Particle{
 		group.generateArray("blue", countBlue),
 		group.generateArray("red", countRed),
-		group.generateArray("black", countBlack),
+		//group.generateArray("black", countBlack),
 	}
 }
 
@@ -29,7 +29,7 @@ func (group *ParticleGroup) generateArray(color string, count int) []particle.Pa
 func (group *ParticleGroup) MoveAll() {
 	for i := 0; i < len(group.particles); i++ {
 		for j := 0; j < len(group.particles); j++ {
-			group.moveTwoGroup(group.particles[i], group.particles[j], 10)
+			group.moveTwoGroup(group.particles[i], group.particles[j], 0.01)
 		}
 	}
 }
@@ -49,20 +49,24 @@ func (group *ParticleGroup) moveTwoGroup(first, second []particle.Particle, g fl
 				fx += f * dx
 				fy += f * dy
 			}
+			first[i].Vx += fx
+			first[i].Vy += fy
+
+			first[i].X -= first[i].Vx
+			first[i].Y -= first[i].Vy
+
+			if first[i].X < 0 || first[i].X > group.maxWidth {
+				first[i].Vx *= -1
+			}
+
+			if first[i].Y < 0 || first[i].Y > group.maxHeight {
+				first[i].Vy *= -1
+			}
 		}
 
-		first[i].Vx += fx
-		first[i].Vy += fy
-
-		first[i].X -= first[i].Vx
-		first[i].Y -= first[i].Vy
-
-		if first[i].X < 0 || first[i].X > group.maxWidth {
-			first[i].Vx *= -1
-		}
-
-		if first[i].Y < 0 || first[i].Y > group.maxHeight {
-			first[i].Vy *= -1
-		}
 	}
+}
+
+func (group *ParticleGroup) GetAllParticle() [][]particle.Particle {
+	return group.particles
 }
