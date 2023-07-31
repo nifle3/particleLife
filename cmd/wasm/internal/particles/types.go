@@ -6,6 +6,7 @@ type ParticleGroup struct {
 	particles           [][]particle.Particle
 	maxHeight, maxWidth float64
 	x, y                float64
+	rule                map[string]float64
 }
 
 func NewParticleGroup(maxHeight, maxWidth, x, y float64) ParticleGroup {
@@ -14,5 +15,6 @@ func NewParticleGroup(maxHeight, maxWidth, x, y float64) ParticleGroup {
 		maxWidth:  maxWidth,
 		x:         x,
 		y:         y,
+		rule:      make(map[string]float64),
 	}
 }

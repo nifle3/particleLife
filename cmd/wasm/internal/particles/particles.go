@@ -29,12 +29,12 @@ func (group *ParticleGroup) generateArray(color string, count int) []particle.Pa
 func (group *ParticleGroup) MoveAll() {
 	for i := 0; i < len(group.particles); i++ {
 		for j := 0; j < len(group.particles); j++ {
-			group.moveTwoGroup(group.particles[i], group.particles[j], 0.01)
+			group.moveTwoGroup(group.particles[i], group.particles[j])
 		}
 	}
 }
 
-func (group *ParticleGroup) moveTwoGroup(first, second []particle.Particle, g float64) {
+func (group *ParticleGroup) moveTwoGroup(first, second []particle.Particle) {
 	for i := 0; i < len(first); i++ {
 		fx := 0.0
 		fy := 0.0
@@ -45,6 +45,8 @@ func (group *ParticleGroup) moveTwoGroup(first, second []particle.Particle, g fl
 			d := math.Sqrt(dx*dx + dy*dy)
 
 			if d != 0 {
+				g := group.getRules(first[i].Color + second[j].Color)
+
 				f := g / d
 				fx += f * dx
 				fy += f * dy
@@ -69,4 +71,19 @@ func (group *ParticleGroup) moveTwoGroup(first, second []particle.Particle, g fl
 
 func (group *ParticleGroup) GetAllParticle() [][]particle.Particle {
 	return group.particles
+}
+
+func (group *ParticleGroup) SetRules(coupleName string, value float64) {
+	group.rule[coupleName] = value
+}
+
+func (group *ParticleGroup) getRules(ruleName string) float64 {
+	g := 1.0
+
+	value, ok := group.rule[ruleName]
+	if ok {
+		g = value
+	}
+
+	return g
 }

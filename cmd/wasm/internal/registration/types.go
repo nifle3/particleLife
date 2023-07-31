@@ -11,6 +11,7 @@ type ParticleGroup interface {
 	MoveAll()
 	GetAllParticle() [][]particle.Particle
 	GenerateGroups(countBlue, countRed, countBlack int)
+	SetRules(string, float64)
 }
 
 type JsCallBack struct {
