@@ -29,12 +29,68 @@
             background-color: white;
         }
 
+        .form-floating{
+            margin: 10px;
+        }
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 <body>
     <div id="container">
-        <div id="RightPart">
-            <button onclick="update()" style="width: 100px; height: 50px; background-color: black;">click me!</button>
+        <div id="RightPart" style="text-align: center;" class="mt-2">
+            <strong>Particles count</strong>
+            <div class="form-floating">
+                <input type="number" class="form-control" id="countRed" min="0" value="1">
+                <label for="countRed">Count red</label>
+            </div>
+            <div class="form-floating">
+                <input type="number" class="form-control" id="countBlue" min="0" value="1">
+                <label for="countBlue">Count blue</label>
+            </div>
+            <div class="form-floating">
+                <input type="number" class="form-control" id="countBlack" min="0" value="1">
+                <label for="countBlack">Count black</label>
+            </div>
+
+            <strong>Particle force</strong>
+            <div class="form-floating">
+                <input type="number" class="form-control" id="rebRed" value="1">
+                <label for="rebRed">Red-red</label>
+            </div>
+            <div class="form-floating">
+                <input type="number" class="form-control" id="redBlue" value="1">
+                <label for="redBlue">Red-blue</label>
+            </div>
+            <div class="form-floating">
+                <input type="number" class="form-control" id="redBlack" value="1">
+                <label for="redBlack">Red-black</label>
+            </div>
+            <div class="form-floating">
+                <input type="number" class="form-control" id="blueRed" min="0" value="1">
+                <label for="blueRed">Blue-red</label>
+            </div>
+            <div class="form-floating">
+                <input type="number" class="form-control" id="blueBlue" min="0" value="1">
+                <label for="blueBlue">Blue-blue</label>
+            </div>
+            <div class="form-floating">
+                <input type="number" class="form-control" id="blueBlack" min="0" value="1">
+                <label for="blueBlack">Blue-black</label>
+            </div>
+            <div class="form-floating">
+                <input type="number" class="form-control" id="BlackRed" min="0" value="1">
+                <label for="BlackRed">Black-red</label>
+            </div>
+            <div class="form-floating">
+                <input type="number" class="form-control" id="BlackBlue" min="0" value="1">
+                <label for="BlackBlue">Black-blue</label>
+            </div>
+            <div class="form-floating">
+            <input type="number" class="form-control" id="BlackBlack" min="0" value="1">
+            <label for="BlackBlack">Black-black</label>
+        </div>
+            <button onclick="setup()" class="btn btn-primary">SetUp</button>
+            <button onclick="update()" class="btn btn-primary">Start</button>
         </div>
         <div id="LeftPart">
             <canvas id="myCanvas" style="background-color: gray"></canvas>

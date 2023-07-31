@@ -10,7 +10,7 @@ func (group *ParticleGroup) GenerateGroups(countBlue, countRed, countBlack int) 
 	group.particles = [][]particle.Particle{
 		group.generateArray("blue", countBlue),
 		group.generateArray("red", countRed),
-		//group.generateArray("black", countBlack),
+		group.generateArray("black", countBlack),
 	}
 }
 
