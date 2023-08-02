@@ -47,6 +47,7 @@ func (group *ParticleGroup) moveTwoGroup(first, second []particle.Particle) {
 			fy := 0.0
 
 			for j := 0; j < len(second); j++ {
+
 				dx := first[i].X - second[j].X
 				dy := first[i].Y - second[j].Y
 				d := math.Sqrt(dx*dx + dy*dy)
@@ -83,9 +84,7 @@ func (group *ParticleGroup) moveTwoGroup(first, second []particle.Particle) {
 					first[i].Vy *= -1
 				}
 			}
-
 		}(i)
-
 	}
 
 	firstWaitGroup.Wait()
