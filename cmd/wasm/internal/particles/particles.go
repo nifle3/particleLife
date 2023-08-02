@@ -4,6 +4,7 @@ import (
 	"math"
 	"math/rand"
 	"particleLife/cmd/wasm/pkg/particle"
+	"sync"
 )
 
 func (group *ParticleGroup) GenerateGroups(countBlue, countRed, countBlack int) {
@@ -35,38 +36,59 @@ func (group *ParticleGroup) MoveAll() {
 }
 
 func (group *ParticleGroup) moveTwoGroup(first, second []particle.Particle) {
+	var firstWaitGroup sync.WaitGroup
 	for i := 0; i < len(first); i++ {
-		fx := 0.0
-		fy := 0.0
+		firstWaitGroup.Add(1)
 
-		for j := 0; j < len(second); j++ {
-			dx := first[i].X - second[j].X
-			dy := first[i].Y - second[j].Y
-			d := math.Sqrt(dx*dx + dy*dy)
+		go func(i int) {
+			defer firstWaitGroup.Done()
 
-			if d != 0 {
-				g := group.getRules(first[i].Color + second[j].Color)
+			fx := 0.0
+			fy := 0.0
 
-				f := g / d
-				fx += f * dx
-				fy += f * dy
+			for j := 0; j < len(second); j++ {
+				dx := first[i].X - second[j].X
+				dy := first[i].Y - second[j].Y
+				d := math.Sqrt(dx*dx + dy*dy)
+
+				if d != 0 {
+					g := group.getRules(first[i].Color + second[j].Color)
+
+					f := g / d
+					fx += f * dx
+					fy += f * dy
+				}
+
+				if first[i].Vx >= 80 || first[i].Vx <= -80 {
+					first[i].Vx += fx
+				} else {
+					first[i].Vx -= fx
+
+					first[i].X -= first[i].Vx
+				}
+
+				if first[i].Vy >= 80 || first[i].Vy <= -80 {
+					first[i].Vy += fy
+				} else {
+					first[i].Vy -= fy
+
+					first[i].Y -= first[i].Vy
+				}
+
+				if first[i].X < 0 || first[i].X > group.maxWidth {
+					first[i].Vx *= -1
+				}
+
+				if first[i].Y < 0 || first[i].Y > group.maxHeight {
+					first[i].Vy *= -1
+				}
 			}
-			first[i].Vx += fx
-			first[i].Vy += fy
 
-			first[i].X -= first[i].Vx
-			first[i].Y -= first[i].Vy
-
-			if first[i].X < 0 || first[i].X > group.maxWidth {
-				first[i].Vx *= -1
-			}
-
-			if first[i].Y < 0 || first[i].Y > group.maxHeight {
-				first[i].Vy *= -1
-			}
-		}
+		}(i)
 
 	}
+
+	firstWaitGroup.Wait()
 }
 
 func (group *ParticleGroup) GetAllParticle() [][]particle.Particle {
